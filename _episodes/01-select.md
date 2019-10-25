@@ -346,7 +346,10 @@ SELECT * FROM Person;
 
 > ## Understanding CREATE statements
 > 
-> Use the `.schema` to identify column that contains integers.
+> Look for the `DB Schema` tab in the bottom right of DB Browser.
+> (If you use SQlite from the command line, type `.schema`.)
+>
+> Try to identify every column that contain integers.
 >
 > > ## Solution
 > >
