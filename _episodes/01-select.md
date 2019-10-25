@@ -148,7 +148,9 @@ but that handful accounts for most of what scientists do.
 > you can use either `.quit` or `.exit`.
 {: .callout}
 
-Before we get into using SQLite to select the data, let's take a look at the tables of the database we will use in our examples:
+## Selecting Data From Tables
+
+Let's take a look at the tables of the database we will use in our examples:
 
 <div class="row">
   <div class="col-md-6" markdown="1">
