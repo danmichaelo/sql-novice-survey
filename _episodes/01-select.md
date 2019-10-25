@@ -48,8 +48,8 @@ but that handful accounts for most of what scientists do.
 > can import and export data in a variety of formats like .csv, SQL,
 > so it *is* possible to move information from one to another.
 {: .callout}
-
-> ## Getting Into and Out Of SQLite
+>
+> ## Sqlite From the Command Line (Optional)  
 >
 > In order to use the SQLite commands *interactively*, we need to
 > enter into the SQLite console.  So, open up a terminal, and run
@@ -67,83 +67,6 @@ but that handful accounts for most of what scientists do.
 > To get out of SQLite, type out `.exit` or `.quit`.  For some
 > terminals, `Ctrl-D` can also work.  If you forget any SQLite `.` (dot)
 > command, type `.help`.
-{: .callout}
-
-Before we get into using SQLite to select the data, let's take a look at the tables of the database we will use in our examples:
-
-<div class="row">
-  <div class="col-md-6" markdown="1">
-
-**Person**: people who took readings.
-
-|id      |personal |family
-|--------|---------|----------
-|dyer    |William  |Dyer
-|pb      |Frank    |Pabodie
-|lake    |Anderson |Lake
-|roe     |Valentina|Roerich
-|danforth|Frank    |Danforth
-
-**Site**: locations where readings were taken.
-
-|name |lat   |long   |
-|-----|------|-------|
-|DR-1 |-49.85|-128.57|
-|DR-3 |-47.15|-126.72|
-|MSK-4|-48.87|-123.4 |
-
-**Visited**: when readings were taken at specific sites.
-
-|id   |site |dated     |
-|-----|-----|----------|
-|619  |DR-1 |1927-02-08|
-|622  |DR-1 |1927-02-10|
-|734  |DR-3 |1930-01-07|
-|735  |DR-3 |1930-01-12|
-|751  |DR-3 |1930-02-26|
-|752  |DR-3 |-null-    |
-|837  |MSK-4|1932-01-14|
-|844  |DR-1 |1932-03-22|
-
-  </div>
-  <div class="col-md-6" markdown="1">
-
-**Survey**: the actual readings.  The field `quant` is short for quantitative and indicates what is being measured.  Values are `rad`, `sal`, and `temp` referring to 'radiation', 'salinity' and 'temperature', respectively.
-
-|taken|person|quant|reading|
-|-----|------|-----|-------|
-|619  |dyer  |rad  |9.82   |
-|619  |dyer  |sal  |0.13   |
-|622  |dyer  |rad  |7.8    |
-|622  |dyer  |sal  |0.09   |
-|734  |pb    |rad  |8.41   |
-|734  |lake  |sal  |0.05   |
-|734  |pb    |temp |-21.5  |
-|735  |pb    |rad  |7.22   |
-|735  |-null-|sal  |0.06   |
-|735  |-null-|temp |-26.0  |
-|751  |pb    |rad  |4.35   |
-|751  |pb    |temp |-18.5  |
-|751  |lake  |sal  |0.1    |
-|752  |lake  |rad  |2.19   |
-|752  |lake  |sal  |0.09   |
-|752  |lake  |temp |-16.0  |
-|752  |roe   |sal  |41.6   |
-|837  |lake  |rad  |1.46   |
-|837  |lake  |sal  |0.21   |
-|837  |roe   |sal  |22.5   |
-|844  |roe   |rad  |11.25  |
-
-  </div>
-</div>
-
-Notice that three entries --- one in the `Visited` table,
-and two in the `Survey` table --- don't contain any actual
-data, but instead have a special `-null-` entry:
-we'll return to these missing values [later]({{ site.github.url }}/05-null/).
-
-
-> ## Checking If Data is Available
 >
 > On the shell command line,
 > change the working directory to the one where you saved `survey.db`.
@@ -224,6 +147,80 @@ we'll return to these missing values [later]({{ site.github.url }}/05-null/).
 > To exit SQLite and return to the shell command line,
 > you can use either `.quit` or `.exit`.
 {: .callout}
+
+Before we get into using SQLite to select the data, let's take a look at the tables of the database we will use in our examples:
+
+<div class="row">
+  <div class="col-md-6" markdown="1">
+
+**Person**: people who took readings.
+
+|id      |personal |family
+|--------|---------|----------
+|dyer    |William  |Dyer
+|pb      |Frank    |Pabodie
+|lake    |Anderson |Lake
+|roe     |Valentina|Roerich
+|danforth|Frank    |Danforth
+
+**Site**: locations where readings were taken.
+
+|name |lat   |long   |
+|-----|------|-------|
+|DR-1 |-49.85|-128.57|
+|DR-3 |-47.15|-126.72|
+|MSK-4|-48.87|-123.4 |
+
+**Visited**: when readings were taken at specific sites.
+
+|id   |site |dated     |
+|-----|-----|----------|
+|619  |DR-1 |1927-02-08|
+|622  |DR-1 |1927-02-10|
+|734  |DR-3 |1930-01-07|
+|735  |DR-3 |1930-01-12|
+|751  |DR-3 |1930-02-26|
+|752  |DR-3 |-null-    |
+|837  |MSK-4|1932-01-14|
+|844  |DR-1 |1932-03-22|
+
+  </div>
+  <div class="col-md-6" markdown="1">
+
+**Survey**: the actual readings.  The field `quant` is short for quantitative and indicates what is being measured.  Values are `rad`, `sal`, and `temp` referring to 'radiation', 'salinity' and 'temperature', respectively.
+
+|taken|person|quant|reading|
+|-----|------|-----|-------|
+|619  |dyer  |rad  |9.82   |
+|619  |dyer  |sal  |0.13   |
+|622  |dyer  |rad  |7.8    |
+|622  |dyer  |sal  |0.09   |
+|734  |pb    |rad  |8.41   |
+|734  |lake  |sal  |0.05   |
+|734  |pb    |temp |-21.5  |
+|735  |pb    |rad  |7.22   |
+|735  |-null-|sal  |0.06   |
+|735  |-null-|temp |-26.0  |
+|751  |pb    |rad  |4.35   |
+|751  |pb    |temp |-18.5  |
+|751  |lake  |sal  |0.1    |
+|752  |lake  |rad  |2.19   |
+|752  |lake  |sal  |0.09   |
+|752  |lake  |temp |-16.0  |
+|752  |roe   |sal  |41.6   |
+|837  |lake  |rad  |1.46   |
+|837  |lake  |sal  |0.21   |
+|837  |roe   |sal  |22.5   |
+|844  |roe   |rad  |11.25  |
+
+  </div>
+</div>
+
+Notice that three entries --- one in the `Visited` table,
+and two in the `Survey` table --- don't contain any actual
+data, but instead have a special `-null-` entry:
+we'll return to these missing values [later]({{ site.github.url }}/05-null/).
+
 
 For now,
 let's write an SQL query that displays scientists' names.
